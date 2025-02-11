@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Controller</title>
+</head>
+<body>
+    <h2>Press any key to control the laptop</h2>
+    <script>
+        const ws = new WebSocket("ws://<https://4704-2a01-4b00-d023-b100-64ec-5918-347c-899.ngrok-free.app>:8080"); // Change this to your laptop's IP
+
+        ws.onopen = () => console.log("Connected to WebSocket Server");
+        ws.onmessage = (event) => console.log("Server Response:", event.data);
+
+        document.addEventListener("keydown", (event) => {
+            ws.send(JSON.stringify({ key: event.key }));
+        });
+    </script>
+</body>
+</html>
